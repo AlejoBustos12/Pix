@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script xmlns:i="http://www.w3.org/2001/XMLSchema-instance" z:Id="i1" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns="http://schemas.datacontract.org/2004/07/BR.Logic">
+  <CompilationType>CSharp</CompilationType>
+  <Description>Working with data in JSON format - parsing the received data and displaying the result on the screen.</Description>
+  <Id>3607fc99-5c75-4aff-b6a1-2b1eebec6bcf</Id>
+  <Logic z:Id="i2" i:type="ExecutedStep">
+    <Childs>
+      <AbstractStep z:Id="i3" i:type="ExecutedStep">
+        <Childs />
+        <Id>3a05e1a6-561a-4ba3-80f0-5f08eecd9477</Id>
+        <Parent z:Ref="i2" />
+        <PropertyValues>
+          <PropertyValue z:Id="i4">
+            <PropertyName>Script</PropertyName>
+            <_dataType>Expression</_dataType>
+            <_expression> "python C:\\Users\\Usuario\\Documents\\codigospython\\PIXRPA\generarreporteexcel.py"</_expression>
+            <_screenShotBase64 i:nil="true" />
+            <_value i:nil="true" />
+            <_xpathSettings xmlns:d7p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+          </PropertyValue>
+        </PropertyValues>
+        <SelectedOptionId i:nil="true" />
+        <AutoCloseMode>None</AutoCloseMode>
+        <EnableStatus>true</EnableStatus>
+        <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+        <RetryCount>-1</RetryCount>
+        <Text></Text>
+        <_activityFullName>Activities.Processes.ExecutePowerShellScript</_activityFullName>
+      </AbstractStep>
+      <AbstractStep z:Id="i5" i:type="ExecutedStep">
+        <Childs />
+        <Id>acda876b-d4f7-43d6-ba7a-d09c25c6e60b</Id>
+        <Parent z:Ref="i2" />
+        <PropertyValues>
+          <PropertyValue z:Id="i6">
+            <PropertyName>FilePath</PropertyName>
+            <_dataType>Expression</_dataType>
+            <_expression>@"C:\Users\Usuario\Documents\codigospython\PIXRPA\generarreporteexcel.py"</_expression>
+            <_screenShotBase64 i:nil="true" />
+            <_value i:nil="true" />
+            <_xpathSettings xmlns:d7p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+          </PropertyValue>
+          <PropertyValue z:Id="i7">
+            <PropertyName>Code</PropertyName>
+            <_dataType>Expression</_dataType>
+            <_expression>@"
+import pandas as pd
+import psycopg2
+from datetime import datetime
+import os
+
+# Asegurar que el directorio exista
+os.makedirs(""C:/Users/Usuario/Documents/codigospython/PIXRPA"", exist_ok=True)
+
+# Conexión a la base de datos
+conn = psycopg2.connect(
+    host='20.231.87.17',
+    database='CamaraComercio',
+    user='postgres',
+    password='y6?/s,Z;aN{A6USb'
+)
+
+# Consulta
+df = pd.read_sql(""SELECT * FROM productos"", conn)
+
+# Nombre del archivo
+fecha_actual = datetime.now().strftime('%Y-%m-%d')
+nombre_reporte = rf""C:\Users\Usuario\Documents\codigospython\PIXRPA\Reporte_{fecha_actual}.xlsx""
+
+# Resumen
+resumen = {
+    ""Total de productos"": [df.shape[0]],
+    ""Precio promedio general"": [df['price'].mean()]
+}
+df_resumen = pd.DataFrame(resumen)
+
+# Agrupaciones
+precio_categoria = df.groupby('category')['price'].mean().reset_index()
+precio_categoria.columns = ['Categoría', 'Precio Promedio']
+
+cantidad_categoria = df['category'].value_counts().reset_index()
+cantidad_categoria.columns = ['Categoría', 'Cantidad de Productos']
+
+# Escritura a Excel
+with pd.ExcelWriter(nombre_reporte, engine='openpyxl') as writer:
+    df.to_excel(writer, sheet_name='Productos', index=False)
+    df_resumen.to_excel(writer, sheet_name='Resumen', index=False, startrow=0)
+    precio_categoria.to_excel(writer, sheet_name='Resumen', index=False, startrow=4)
+    cantidad_categoria.to_excel(writer, sheet_name='Resumen', index=False, startrow=8)
+
+# Cerrar conexión
+conn.close()
+
+print(f""✅ Reporte generado exitosamente: {nombre_reporte}"")"</_expression>
+            <_screenShotBase64 i:nil="true" />
+            <_value i:nil="true" />
+            <_xpathSettings xmlns:d7p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+          </PropertyValue>
+          <PropertyValue z:Id="i8">
+            <PropertyName>ExceptionOfExecuting</PropertyName>
+            <_dataType>Expression</_dataType>
+            <_expression>error</_expression>
+            <_screenShotBase64 i:nil="true" />
+            <_value i:nil="true" />
+            <_xpathSettings xmlns:d7p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+          </PropertyValue>
+        </PropertyValues>
+        <SelectedOptionId>1</SelectedOptionId>
+        <AutoCloseMode>None</AutoCloseMode>
+        <EnableStatus>false</EnableStatus>
+        <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+        <RetryCount>-1</RetryCount>
+        <Text>Prueba ejecucion Python</Text>
+        <_activityFullName>Activities.Python.ExecutePython</_activityFullName>
+      </AbstractStep>
+    </Childs>
+    <Id>98999ca0-d503-4fba-87de-481873ec5022</Id>
+    <Parent i:nil="true" />
+    <PropertyValues />
+    <SelectedOptionId i:nil="true" />
+    <AutoCloseMode>None</AutoCloseMode>
+    <EnableStatus>true</EnableStatus>
+    <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+    <RetryCount>-1</RetryCount>
+    <Text i:nil="true" />
+    <_activityFullName>BR.Core.Base.Container</_activityFullName>
+  </Logic>
+  <Name>New script.pix</Name>
+  <Namespaces xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <Params />
+  <PlatformVersion xmlns:d2p1="http://schemas.datacontract.org/2004/07/System">
+    <d2p1:_Build>2</d2p1:_Build>
+    <d2p1:_Major>2</d2p1:_Major>
+    <d2p1:_Minor>27</d2p1:_Minor>
+    <d2p1:_Revision>0</d2p1:_Revision>
+  </PlatformVersion>
+  <TemplateVersion xmlns:d2p1="http://schemas.datacontract.org/2004/07/System" i:nil="true" />
+  <Variables xmlns:d2p1="http://schemas.datacontract.org/2004/07/BR.Logic.Params" />
+  <Version i:nil="true" />
+</Script>
