@@ -29,11 +29,11 @@
     </ProjectFileItem>
     <ProjectFileItem z:Id="i8">
       <IsMain>false</IsMain>
-      <Path>New script.pix</Path>
+      <Path>services\google_drive\upload_file.pix</Path>
     </ProjectFileItem>
     <ProjectFileItem z:Id="i9">
       <IsMain>false</IsMain>
-      <Path>services\google_drive\upload_file.pix</Path>
+      <Path>services\form\form.pix</Path>
     </ProjectFileItem>
     <ProjectFileItem z:Id="i10">
       <IsMain>false</IsMain>
