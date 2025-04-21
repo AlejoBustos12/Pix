@@ -1,6 +1,8 @@
-# Proyecto RPA - Prueba Técnica
+# 🤖 Proyecto RPA - Prueba Técnica
 
-Este proyecto es una **prueba técnica** que automatiza una serie de tareas usando **tecnología RPA (Automatización Robótica de Procesos)**, ejecutado desde la plataforma **Pix** y desarrollado con **Python 3**.
+Este proyecto es una **prueba técnica** de automatización desarrollada en tecnología **RPA** mediante la plataforma **Pix** y programación en **Python 3.10**, con conexión a **PostgreSQL**. Automatiza tareas desde la recolección de datos hasta la entrega y almacenamiento de reportes.
+
+---
 
 ## 📝 Descripción del Proyecto
 
