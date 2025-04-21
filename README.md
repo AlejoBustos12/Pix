@@ -25,6 +25,10 @@ El proceso RPA desarrollado realiza las siguientes tareas:
 2. **Configurar las variables necesarias:**
    - Parámetros de conexión a la base de datos.
    - URL del formulario web.
-3. **Instalar las dependencias (ver sección siguiente).**
-4. **Ejecutar el proceso desde la plataforma Pix desde el archivo main.pix** 
+3. **Instalar las dependencias .**
+requests           # Para consumir APIs REST
+pandas             # Para manipular y analizar datos
+openpyxl           # Para escribir archivos Excel (.xlsx)
+psycopg2-binary    # Para conectarse y trabajar con PostgreSQL
+5. **Ejecutar el proceso desde la plataforma Pix desde el archivo main.pix** 
  
